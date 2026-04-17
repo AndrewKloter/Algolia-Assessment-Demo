@@ -1,15 +1,29 @@
-//You then use JavaScript to instantiate InstantSearch and attach widgets to your HTML containers
-//obtained from Algolia documentation
+// Wait for the window to load to ensure scripts are ready
+window.addEventListener('load', () => {
+  const search = instantsearch({
+    indexName: 'products', // CHECK THIS: Must match your Algolia Index name exactly
+    searchClient: algoliasearch('YOUR_APP_ID', 'YOUR_SEARCH_ONLY_API_KEY'),
+  });
 
-const search = instantsearch({
-    indexName: 'products',
-    searchClient: algoliasearch.algoliasearch('YourAppID', 'YourSearchOnlyAPIKey'),
+  search.addWidgets([
+    instantsearch.widgets.searchBox({
+      container: '#searchbox',
+    }),
+    instantsearch.widgets.hits({
+      container: '#hits',
+      templates: {
+        item: (hit, { html }) => html`
+          <div>
+            <strong>${hit.name}</strong><br />
+            ${hit.brand} - $${hit.price}
+          </div>
+        `,
+      },
+    }),
+    instantsearch.widgets.pagination({
+      container: '#pagination',
+    }),
+  ]);
+
+  search.start();
 });
-
-search.addWidgets([
-    searchBox({ container: '#searchbox' }),
-    hits({ container: '#hits' }),
-    pagination({ container: '#pagination' }),
-]);
-
-search.start();
