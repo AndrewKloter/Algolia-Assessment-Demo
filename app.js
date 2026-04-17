@@ -2,14 +2,14 @@
 //obtained from Algolia documentation
 
 const search = instantsearch({
-  indexName: 'products',
-  searchClient: algoliasearch('YourAppID', 'YourSearchOnlyAPIKey'),
+    indexName: 'products',
+    searchClient: algoliasearch.algoliasearch('YourAppID', 'YourSearchOnlyAPIKey'),
 });
 
 search.addWidgets([
-  searchBox({ container: '#searchbox' }),
-  hits({ container: '#hits' }),
-  pagination({ container: '#pagination' }),
+    searchBox({ container: '#searchbox' }),
+    hits({ container: '#hits' }),
+    pagination({ container: '#pagination' }),
 ]);
 
 search.start();
